@@ -1,5 +1,8 @@
 # Python学习笔记
 [官网:www.python.org](www.python.org)
+
+[参考视频](https://www.bilibili.com/video/BV1qh411273b)
+
 ## 特性：
 
 >- `解释型`、面向对象的语言、可移植性和跨平台
@@ -295,7 +298,13 @@ v5 = ((1),(2),(3))
 
 > 索引，切片，步长均生成新的元组
 
+字符串和列表转元组
 
+```python
+name = "你好啊"
+data = tuple(name)
+print(data)	# ("你","好"，"啊")
+```
 
 ### 5.相互转换
 关键字：`int 、str 、bool`
@@ -309,6 +318,7 @@ bool()
 ~~~
 
 ### 6.变量和变量名
+
 变量名规范：
 - 由`字母、数字、下划线`组成
 - 不能以`数字`开头
@@ -388,7 +398,7 @@ else:
 ```
 #### 8.2 for循环（已知数量的循环）
 ```python
-# 相当于Java中的forach
+# 相当于Java中的forach？
 data = "你来打我呀"
 for char in data:
     print(char)
