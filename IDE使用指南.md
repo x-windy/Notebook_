@@ -13,18 +13,18 @@
 - `main`
 
  输出语句:`sout`
- 
+
  搜索类：`ctrl + n`
- 
+
  代码上下移动：`ctrl + shift + up/down`
- 
+
  生成代码：`alt + insert `(构造方法、getter、setter、hashCode、equals、toString)
- 
+
  整体重命名：`shift + F6`
- 
+
  代码块包围：`ctrl + alt + t`
- 
- 
+
+
 ### IDEA的项目创建
 > 1.建立的项目不是空项目，模块之间有数据的相会调用关系（分布式系统）
 > 2.如果是空项目，那么模块之间没有任何关联，模块作为独立项目空间

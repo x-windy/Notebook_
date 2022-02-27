@@ -1,21 +1,21 @@
 # Git使用常见问题总结
 
- 
+
 ## 上传大文件
 
- 
+
 ### 未commit大文件到本地库
- 
+
   > [下载git-lfs插件](https://git-lfs.github.com/)
-  
+
  安装 Git-lfs 命令行扩展（或直接编辑`.gitattributes`文件）
-  
+
 ```shell
  git lfs install
 ```
-  
+
  追踪单个文件或文件夹
-  
+
 ```shell
 git lfs track "文件名"
 
@@ -23,13 +23,13 @@ git lfs track "*.扩展名"
 ````
 
  先上传`.gitattributes`配置文件到`github`
- 
+
  再进行大文件`commit`
- 
+
 ### 已经commit了大文件，push到远程仓库报错
 
  解决方法:
- 
+
 ### 方法一：
 - 直接删除`.git`本地仓库文件
 
@@ -45,7 +45,7 @@ git rm -r --cached "file"
 # commit提交历史移动，记得备份工作区文件
 git reset --hard "hash值
 
-``` 
+```
 
 # 退出`log`内容过多和`vim`模式
 
@@ -86,4 +86,9 @@ git reset --hard "hash值
 输入`:e!` ，回车后回到命令模式。
 
 # 未输入完成，显示`>`
+
 快捷键`ctrl + d`,退出
+
+# 修改已经commit的信息
+
+[Git 修改已提交 commit 的信息](https://cloud.tencent.com/developer/article/1730774)
