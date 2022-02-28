@@ -1,4 +1,7 @@
+
+
 # Python学习笔记
+
 [官网:www.python.org](www.python.org)
 
 [参考视频](https://www.bilibili.com/video/BV1qh411273b)
@@ -29,7 +32,7 @@ IDE集成开发环境：IDLE、PyCharm
 ![第一行代码](vx_images/374370800226540.png)
 
 ## 一、基础
-1. ### Python的编码
+### 1.Python的编码
 
 Python解释器默认编码：`utf-8`
 
@@ -54,14 +57,92 @@ print(data1)
 
 # ord获取单个字符的Unicode码
 # ord("我")获取unicode的十进制表示
+
 ```
+Python关键字
+
+| False  | None   | True    | and      | as       | assert | async |
+| ------ | ------ | ------- | -------- | -------- | ------ | ----- |
+| await  | break  | class   | continue | def      | del    | elif  |
+| else   | except | finally | for      | from     | global | if    |
+| import | in     | is      | lambda   | nonlocal | not    | or    |
+| pass   | raise  | return  | try      | while    | with   | yield |
+
 ### 2.输入语句和输出语句
+
 关键字：`input、print`
+
+#### input
+
+格式：`input(prompt=None,/)`
+
+`promp`：表示提示信息，默认为空，如果不空，则显示提示信息
+
+`/`：函数参数最后一个斜线表示该函数只接收位置参数而不接收关键参数，但是在Python中并不允许自定义这样的函数。这样的函数一般是用C语言开发的内置函数或特定对象的方法。
+
 ```python
-# 用户输入的任何内容本质上都是字符串
+# 用户输入的任何内容本质上都是字符串，默认返回字符串
 name = input("请输入用户名：")
+type(name)
+# <class 'str'>
+
+# 多个变量赋值
+x,y = input("请输入x,y值：")
+# 请输入x,y值：ab
+# x=a y=b
+
+>>>m= input("请输入x,y值：")
+请输入x,y值：ab cd
+>>> m
+'ab cd'
+>>> m.split()
+['ab', 'cd']
+>>> x,y=map(str,m.split())
+>>> x
+'ab'
+>>> y
+'cd'
+```
+
+#### print
+
+格式：`print(value, ..., sep=' ', end='\n',file=sys.stdout, flush=False)`
+
+`value`： 表示需要输出的对象，一次可以输出一个或者多个对象（其中...表示任意多个对象），当输出多个对象时，对象之间要用逗号（，）分隔；
+
+`sep`：表示输出时对象之间的间隔符，默认用一个空格分隔；
+
+`end`：表示输出以何字符结尾，默认值是换行符；
+
+`file`：表示输出位置，可将输出到文件，`file`指定的对象要有“写”的方法，默认值是`sys.stdout`（标准输出）；
+
+`flush`：将缓存里面的内容是否强制刷新输出，默认值是False。
+
+```python
+
 # 会自动换行
 print("Hello World")
+
+# 一次输出三个对象，中间默认用空格隔开
+>>> print('hello','world','!')
+# hello world !
+
+# 一次输出三个对象，中间用*隔开
+>>> print('hello','world','!',sep='*')
+# hello*world*!
+
+# 一次输出三个对象，中间无分隔，因为sep参数值被设置为空字符串了
+>>> print('hello','world','!',sep='')
+# helloworld!
+
+# 一次输出三个对象，以*结尾。
+>>> print('hello','world','!',end='*')
+# hello world !*
+
+# 将输出helloworld!写入到c盘test文件夹中ok.txt文件
+>>> with open('c:\\test\\ok.txt','w') as f:
+	print('helloworld!',file=f)
+
 ```
 ### 3.注释
 关键字：`#、"""`
@@ -315,6 +396,10 @@ bool(" ") True
 str()
 int()
 bool()
+int('25.4')# 非法，不接受带小数的数字字符串
+int('25')# 可以
+float('5.64')# 可以
+float('abc')# 无穷大
 ~~~
 
 ### 6.变量和变量名
@@ -332,7 +417,7 @@ print(age)
 ~~~
 
 ### 7.条件语句
-关键字：`if、elif、else`
+关键字：`if、elif、else、pass`
 ```python
 # 单条件判断语法
 if 条件 :
@@ -377,6 +462,13 @@ if int(data) % 2 == 1:
     print(data + "为偶数")
 else：
     print(data + "为奇数")
+    
+# pass语句
+if a==5
+	# 没想好
+	pass
+else
+	print("OK")
 ```
 
 ### 8.循环语句 
@@ -571,7 +663,11 @@ print(t3)
 ```python
 # 二进制转十进制等
 # base=2/8/16
+# base基数，可取范围0，2-36，默认十进制
 i1 = int("0b10011",base=2)
+i2 = int("10011",2）
+# 字符串中不能出现小数点
+i1 = int("0b100.11",base=2）# 非法
 ```
 ### 13.计算机中的单位
 关键字：`b(bit)、B(byte)、KB(kilobyte)、、、`
@@ -617,8 +713,9 @@ i1 = int("0b10011",base=2)
 ```
 #### 14.2 gbk（包含中日韩等文字）
 > GB-2312国家信息标准委员会制作（1980年）
->GBK编码，对GB-2312的扩展，包含中日韩等文字（1995年）
->- 汉字2个字节
+> GBK编码，对GB-2312的扩展，包含中日韩等文字（1995年）
+>
+> - 汉字2个字节
 - 单字节表示，用一个字节表示对应的关系。（兼容ASCII码）
 - 双字节表示，用两个字节表示对应的关系。2**16 = 65536种可能性
 
@@ -659,3 +756,51 @@ Unicode符号范围     |        UTF-8编码方式
 填入模板：01000010
 ```
 utf-8的应用：在文件存储和网络传输时，可将unicode转换为utf-8进行存储与传输。
+
+
+
+
+
+## 函数
+
+关键字：`eval`
+
+### eval()
+
+格式：`eval(source, globals=None, locals=None, /)`
+
+功能：将`source`当做一个python表达式进行`解析和计算`，返回计算结果。
+
+参数说明：`source`是一个字符串，这个字符串能表示成Python表达式，或者是能够通过编译的代码；
+
+`globals`是可选的参数，默认为None，如果设置属性不为None的话，就必须是`dictionary`对象；
+
+`locals`也是可选的参数，默认为None，如果设置属性不为None的话，可以是任何`map`对象。
+
+```python
+x=3
+eval('x+1')
+# 4
+eval('3+5')
+# 8
+eval('{1:23,2:32}')
+# {1: 23, 2: 32}
+eval("__import__('os').getcwd()") #获取当前目录
+'C:\\Users\\lq\\AppData\\Local\\Programs\\Python\\Python37
+
+x=eval(input("请输入x值："))
+# 请输入x值：100+200
+# x=300
+
+x=eval(input("请输入x值："))
+# 请输入x值：100.36
+# x=100.36
+
+""" 
+eval()函数接收一个字符串参数时，如果字符串中是表达式可以返回表达式的值；
+如果字符串中是列表、元组或字典还能得到真正的列表、元组或字典；
+如果字符串中是能够通过编译的代码，则可以执行代码。
+"""
+```
+
+### map()
