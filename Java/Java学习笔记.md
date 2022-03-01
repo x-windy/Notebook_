@@ -2,10 +2,12 @@
 
 ## JavaSE
 
-### 基于接口的匿名内部类
+### 匿名内部类
 
 `AnonymouslnnerClass.java`
 
+> 基于接口的匿名内部类
+>
 > 需求：想使用一个接口，并创建对象
 >
 > 传统方法：写一个类，实现该接口，并创建对象
@@ -22,7 +24,7 @@
 
 ```java
 public class AnonymouslnnerClass {
-
+	private String n1 = "啊吧啊吧阿阿巴";
     public static void main(String[] args) {
         /*
            编译看左边，运行看右边
@@ -40,10 +42,17 @@ public class AnonymouslnnerClass {
            并创建了Test$1对象实例，并返回地址
            底层操作：创建类—>实现接口—>new对象—>赋值给yly—>销毁类—>留下new对象
          */
+        // 匿名内部类是局部变量，不能添加修饰符
         AI yly = new AI() {
+            private String n1 = "啊吧啊吧阿阿巴...";
             @Override
             public void say() {
                 System.out.println("我是天才。");
+                // 可以直接访问外部类的所有成员，包括私有的
+                System.out.println(n1);
+                // 外部类和匿名内部类的成员重名时，遵循最近原则。（外部类名.this.成员）访问外部成员
+                System.out.println(AnonymouslnnerClass.this.n1);
+                // AnonymouslnnerClass.this 为AnonymouslnnerClass的对象
             }
         };
         yly.say();
@@ -55,6 +64,81 @@ interface AI{
     public void say();
 }
 ```
+
+匿名内部类作为形参传递
+
+`InnerClass.java`
+
+> 只用一次，免写一个类
+>
+> 简洁高效
+
+```java
+public class InnerClass {
+
+    public static void main(String[] args){
+        // 匿名内部类可作为对象进行传递
+        // 传递的是实现了 AI接口的匿名内部类
+        InnerClass.yly(new AI() {
+            // 重写方法
+            @Override
+            public void smile() {
+                System.out.println("yly微微一笑...");
+            }
+        });
+    }
+        // 静态方法，参数类型为接口类型(形参)
+    public static void yly(AI ai){
+        // 执行重写的smile()方法
+        ai.smile();
+    }
+
+}
+
+interface AI{
+    void smile();
+}
+```
+
+练习
+
+```JAVA
+public class InnerClassE {
+
+    public static void main(String[] args){
+        Cellphone cellphone = new Cellphone();
+        
+        // 根据实际情况打印不同的信息
+        cellphone.alarmclock(new Bell() {
+            @Override
+            public void ring() {
+                System.out.println("懒猪起床了！！！");
+            }
+        });
+        
+        cellphone.alarmclock(new Bell() {
+            @Override
+            public void ring() {
+                System.out.println("小伙伴起床了！！！");
+            }
+        });
+    }
+
+
+}
+
+interface Bell{
+    void ring();
+}
+class Cellphone{
+    public void alarmclock(Bell bell){
+        bell.ring();// 动态绑定
+        // 动态绑定机制：当调用对象方法时，该方法会和该对象的内存地址/运行类型有关
+    }
+}
+```
+
+### 成员内部类
 
 ### 自定义异常类
 
