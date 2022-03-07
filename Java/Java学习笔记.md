@@ -140,6 +140,64 @@ class Cellphone{
 
 ### 成员内部类
 
+> - 定义在外部类的成员位置（嵌套）
+>
+> - 可访问外部类的所有成员，包括私有
+> - 可以添加任意访问修饰符（public、protected、默认、priviate），因为它的地位就是一个成员
+> - 不能用static修饰，因为内部类时绑定在外部类上面的，内部类存在的重要条件：外部类已经存在，而不能独立存在
+> -  外部类和成员内部类的成员重名时，遵循最近原则。（外部类名.this.成员）访问外部成员
+
+外部类调用成员内部类
+
+```Java
+public class OuterClass {//外部类
+
+    public static void main(String[] args){
+        OuterClass outerClass = new OuterClass();
+        outerClass.Dog();
+        // 法一
+        // 外部其它类调用外部类的成员内部类，outerClass.new InnerClass() 当作OuterClass成员
+        OuterClass.InnerClass innerClass = outerClass.new InnerClass();
+        // 法二
+        // 在外部类中创建一个方法，返回成员内部类对象
+        InnerClass innerClassInstance = outerClass.getInnerClassInstance();
+
+        // 法三
+        InnerClass innerClass1 = new OuterClass().new InnerClass();
+
+    }
+    class InnerClass{//内部类
+        public void say(){
+            System.out.println(" 汪汪汪");
+        }
+    }
+
+    public void Dog(){
+        // 外部类调用成员内部类方法
+        InnerClass innerClass = new InnerClass();
+        innerClass.say();
+    }
+
+    // 返回成员内部类实例对象
+    public InnerClass getInnerClassInstance(){
+        return new InnerClass();
+    }
+
+}
+
+```
+
+### 静态成员类
+
+> - 定义在外部类的成员位置
+> - 被static修饰
+> - 可直接访问外部类的所有静态成员，包括私有，但不能访问非静态成员
+> - 可以添加任意访问修饰符（public、protected、默认、priviate），因为它的地位就是一个成员
+> - 作用域：为整个类体
+> - 外部其它类访问静态成员类
+>   -   编写方法返回静态内部类的实例:`public （static） 类名 getInner(){return new 类名( )}`
+>   -  `new 外部类.内部类();`
+
 ### 自定义异常类
 
 `IllegalTriangleException.java`
