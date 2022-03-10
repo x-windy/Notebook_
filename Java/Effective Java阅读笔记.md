@@ -48,8 +48,66 @@ public NutritionFacts(int servingSize, int servings) {
 - `newType`——像 `newInstance` 一样，但是在静态方法处于**不同的类**中的时候使用。`Type`表示静态方法所返回的对象类型：`BufferedReader br = Files.newBufferedReader(path);`
 - `type`——`getType`和`newType`的简版：`List< Complainty> litany= Collections.list(legacyLitany);`
 
-```java
+JDBC连接数据库
 
+```java
+public class Jdbc_User {
+    static final String DRIVER ="com.mysql.cj.jdbc.Driver";
+    static final String URL="jdbc:mysql://localhost:3306/bbs?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8";
+    static final String USER ="root";
+    static final String PASSWORD ="123456";
+
+    public static void main(String[] args) {
+        Connection conn = Jdbc_User.getConn();
+        System.out.println(conn);
+    }
+
+    public static Connection getConn() {
+        Connection connection = null;
+        try {
+            //查询数据库是否存在，并建立连接
+            Class.forName(DRIVER);
+            //建立数据库连接并返回Connection对象
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+
+
+
+    // Mysql DML语句（增删改）
+    public static int jdbcDML(String sql) {
+        Statement statement = null;
+        Connection connection = Jdbc_User.getConn();
+        int rows = 0;
+        try {
+            statement = connection.createStatement();
+            rows = statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rows;
+    }
+
+    // Mysql DQL语句（查询）
+    public static ResultSet jdbcDQL(String sql) {
+        ResultSet resultSet = null;
+         Connection connection = Jdbc_User.getConn();
+        try {
+            Statement statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
+    }
+}
+   
 ```
 
 
